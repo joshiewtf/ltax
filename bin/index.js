@@ -23,6 +23,10 @@ const ipInfo = async (ip, apiKey, options) => {
     try {
         // if there are options, add them to the request
         if (options) {
+            if (options != "isp" || options != "asn" || options != "location" || options != "time") {
+                console.log("Invalid option. Please use avatar, username, flags, discriminator, or tag");
+                return;
+            }
             const response = await axios.get(`https://lmao.tax/ip/${ip}/${options}`, axiosoptions);
             const data = response.data.data;
             if (options == "isp") {
@@ -35,7 +39,7 @@ const ipInfo = async (ip, apiKey, options) => {
                 console.log(`IP: ${ip}, Timezone: ${data.timezone} Date&Time: ${data.datetime}`);
             }
             else {
-                console.log("Invalid option");
+                console.log("Invalid option. Please use isp, asn, location, or time");
             }
             
         }
@@ -55,6 +59,7 @@ const ipInfo = async (ip, apiKey, options) => {
             console.log(err);
 
         }
+        //console.log(err);
     }
 };
 
@@ -64,6 +69,10 @@ const discordInfo = async (id, apiKey, options) => {
         return;
     }
 
+    if (options != "avatar" || options != "username" || options != "flags" || options != "discriminator" || options != "tag") {
+        console.log("Invalid option. Please use avatar, username, flags, discriminator, or tag");
+        return;
+    }
     const axiosoptions = {
       headers: {
         "User-Agent": "lmao-tax:https://lmao.tax",
@@ -87,7 +96,7 @@ const discordInfo = async (id, apiKey, options) => {
                 console.log(`ID: ${id}, Tag: ${data}`);
             }
             else {
-                console.log("Invalid option");
+                console.log("Invalid option. Please use avatar, username, flags, discriminator, or tag");
             }
         }
         else {
@@ -137,7 +146,11 @@ if (command == "ip") {
     if (arg1 == "set") {
         fs.writeFileSync(`${homedir}/.ltax/settings.json`, `{"key": "${arg2}"}`);
     }
-} else {
-    console.log("ltax: [ip|discord|apikey] [ip|discord id|set] [options|apikey]");
+} else if (command == "options") {
+    console.log(` IP Options: isp, asn, location, time \n Discord Options: avatar, username, flags, discriminator, tag \n API Key Options: set`);
+
+}
+else {
+    console.log("ltax: [ip|discord|apikey|options] [ip|discord id|set] [options|apikey]");
 }
 
