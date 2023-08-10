@@ -21,4 +21,4 @@ The current avaliable commands are:
 `apikey set [apikey]`
 
 
-Dont judge my code, its absoulte bs
+Dont judge my code, its absolute bs
