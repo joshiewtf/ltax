@@ -24,11 +24,11 @@ const ipInfo = async (ip, apiKey, options) => {
         // if there are options, add them to the request
         if (options) {
             const response = await axios.get(`https://lmao.tax/ip/${ip}/${options}`, axiosoptions);
-            const data = response.data;
+            const data = response.data.data;
             if (options == "isp") {
-                console.log(`IP: ${ip}, ISP: ${data.isp}`);
+                console.log(`IP: ${ip}, ISP: ${data}`);
             } else if (options == "asn") {
-                console.log(`IP: ${ip}, ASN: ${data.asn}`);
+                console.log(`IP: ${ip}, ASN: ${data}`);
             } else if (options == "location") {
                 console.log(`IP: ${ip}, \n  Country & Code: ${data.country_name}, ${data.country_code}, \n  Region & Code: ${data.region_name}, ${data.region_code}, \n  City: ${data.city}, \n  Postal Code: ${data.postal_code}, \n  Latitude & Longitude: ${data.latitude}, ${data.longitude} \n Metro Code: ${data.metro_code} `);
             } else if (options == "time") {
@@ -41,14 +41,20 @@ const ipInfo = async (ip, apiKey, options) => {
         }
         else {
             const response = await axios.get(`https://lmao.tax/ip/${ip}`, axiosoptions);
-            const data = response.data;
-            console.log(data);
+            const data = response.data.data;
+            //console.log(data);
 
             console.log(`IP: ${ip}, \n ISP: ${data.isp}, \n ASN: ${data.asn}, \n Country & Code: ${data.country_name}, ${data.country_code}, \n  Region & Code: ${data.region_name}, ${data.region_code}, \n  City: ${data.city}, \n  Postal Code: ${data.postal_code}, \n  Latitude & Longitude: ${data.latitude}, ${data.longitude} \n Metro Code: ${data.metro_code}`)
         }
     }
     catch (err) {
-        console.log(err);
+        if (err.response.status == 500) {
+            console.error("Error occured, please try again.");
+        }
+        else {
+            console.log(err);
+
+        }
     }
 };
 
@@ -68,17 +74,17 @@ const discordInfo = async (id, apiKey, options) => {
         // if there are options, add them to the request
         if (options) {
             const response = await axios.get(`https://lmao.tax/discord/user/${id}/${options}`, axiosoptions);
-            const data = response.data;
+            const data = response.data.data;
             if (options == "avatar") {
-                console.log(`ID: ${id}, Avatar: ${data.avatarURL}`);
+                console.log(`ID: ${id}, Avatar: ${data}`);
             } else if (options == "username") {
-                console.log(`ID: ${id}, Username: ${data.username}`);
+                console.log(`ID: ${id}, Username: ${data}`);
             } else if (options == "flags") {
-                console.log(`ID: ${id}, Public Flags: ${data.flags}`);
+                console.log(`ID: ${id}, Public Flags: ${data}`);
             } else if (options == "discriminator") {
-                console.log(`ID: ${id}, Discriminator: ${data.discriminator}`);
+                console.log(`ID: ${id}, Discriminator: ${data}`);
             } else if (options == "tag") {
-                console.log(`ID: ${id}, Tag: ${data.tag}`);
+                console.log(`ID: ${id}, Tag: ${data}`);
             }
             else {
                 console.log("Invalid option");
@@ -86,7 +92,8 @@ const discordInfo = async (id, apiKey, options) => {
         }
         else {
             const response = await axios.get(`https://lmao.tax/discord/user/${id}`, axiosoptions);
-            const data = response.data;
+            const data = response.data.data;
+            console.log(data);
 
             console.log(`ID: ${id}, \n Username: ${data.username}, \n Discriminator: ${data.discriminator}, \n Avatar: ${data.avatarURL}, \n Flags: ${data.flags}, \n Tag: ${data.tag}`)
         }

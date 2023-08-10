@@ -9,8 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["lmao-tax", "ltax", "cli"],
+  "author": "joshiewtf",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.4.0",
